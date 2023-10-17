@@ -1,11 +1,10 @@
 const User = require('../models/user');
 
+
 exports.addUser = (req,res) =>{
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
-
-
     User.create({
         name: name,
         email: email,
@@ -27,8 +26,8 @@ exports.addUser = (req,res) =>{
 };
 
 exports.loginUser = (req,res)=>{
-    const email = req.params.email;
-    const password = req.params.password;
+    const email = req.body.email;
+    const password = req.body.password;
 
     User.findOne({
         attributes:['email','password'],
@@ -37,12 +36,15 @@ exports.loginUser = (req,res)=>{
         }
     }).then(user=>{
         if(!user){
+            console.log(user);
             res.status(400).json({message: "email does not exist, please sign up"});
+            
         }
 
-        else if(user.password=== password){
+        else if(user.password === password){
+            console.log(user.password);
            
-                res.status(200).json({message:"user exists"});
+            res.status(200).json({message:"user exists"});
             
         }
         else{

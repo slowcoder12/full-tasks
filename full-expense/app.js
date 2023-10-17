@@ -11,6 +11,8 @@ app.use(express.static('public'));
 
 app.post('/signup',userRoute);
 
+app.post('/login/:email',userRoute);
+
 sequelize.sync().then(result=>{
     app.listen(3000);
    
