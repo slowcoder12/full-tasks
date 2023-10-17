@@ -26,3 +26,30 @@ exports.addUser = (req,res) =>{
     });
 };
 
+exports.loginUser = (req,res)=>{
+    const email = req.params.email;
+    const password = req.params.password;
+
+    User.findOne({
+        attributes:['email','password'],
+        where:{
+            email:email
+        }
+    }).then(user=>{
+        if(!user){
+            res.status(400).json({message: "email does not exist, please sign up"});
+        }
+
+        else if(user.password=== password){
+           
+                res.status(200).json({message:"user exists"});
+            
+        }
+        else{
+            res.status(400).json({message:"Incorrect password"});
+        }
+    }).catch(err=>{
+        console.log(err);
+    })
+}
+
