@@ -17,14 +17,18 @@ loginForm.addEventListener('submit',function(event) {
         }
     })
     .catch(err=>{
-        if(err.response.status === 400){
+        if(err.response.status === 401){
             alert(err.response.data.message);
         }
-        else{
-            alert("error occured");
+
+        else if(err.response.status === 404){
+            alert(err.response.data.message);
         }
       
     });
+
+        document.getElementById("email").value = "";
+        document.getElementById("password").value = "";
 
     
 
