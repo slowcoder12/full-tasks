@@ -1,5 +1,5 @@
 const form = document.querySelector('#form');
-form.addEventListener('submit',function(e){
+form.addEventListener('submit',async function(e){
     e.preventDefault();
 
     const name = document.getElementById('name').value;
@@ -8,19 +8,21 @@ form.addEventListener('submit',function(e){
 
     const user = {name,email,password};
    // console.log(user);
+try {
 
-    axios.post('http://localhost:3000/signup', user).then(response => {
+   const response =  await axios.post('http://localhost:3000/signup', user)
         if (response.status === 200) {
             alert(response.data.message);  
         }
-    })
-    .catch(err => {
+    }
+    catch(err) {
         //console.log(err);
         if (err.response && err.response.status === 400) {
             alert(err.response.data.message);
         }
-    });
+    };
         document.getElementById("name").value = "";
         document.getElementById("email").value = "";
         document.getElementById("password").value = "";
 });
+
