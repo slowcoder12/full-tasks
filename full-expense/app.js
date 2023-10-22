@@ -12,9 +12,13 @@ app.use(express.static('public'));
 
 app.post('/signup',userRoute);
 
-app.post('/login/:email',userRoute);
+app.post('/login',userRoute);
 
 app.post('/addExpense',expRoute);
+
+app.post('/deleteExpense/:id',expRoute);
+
+app.get('/displayItems',expRoute);
 
 sequelize.sync().then(result=>{
     app.listen(3000);

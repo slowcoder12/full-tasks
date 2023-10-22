@@ -11,7 +11,9 @@ exports.addExpense = async (req,res)=>{
         });
 
         console.log("Expense added");
-        res.status(200).json({message: "expense added successfully"})
+        console.log(result);
+        res.status(200).json({result, message: "expense added successfully"})
+
 
     }
     catch(err){
@@ -20,4 +22,34 @@ exports.addExpense = async (req,res)=>{
         }
     }
     
+}
+
+exports.deleteExpense = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const result = await Expense.destroy({
+            where: {
+                id: id
+            }
+        });
+
+        if (result === 1) {
+            res.status(200).json({ message: "Expense deleted successfully" });
+        } else {
+            res.status(404).json({ message: "Expense not found" });
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "An error occurred" });
+    }
+}
+
+exports.displayItems = async (req,res)=>{
+    try{
+        const expenses = await Expense.findAll();
+
+        res.status(200).json(expenses)
+    }catch(err){
+        res.status(500).json({message:"err occured in displaying"})
+    }
 }

@@ -10,7 +10,7 @@ loginForm.addEventListener('submit',async function(event) {
     const loginUser = {email,password};
     try {
 
-    const response = await axios.post(`http://localhost:3000/login/${loginUser.email}`,loginUser);
+    const response = await axios.post(`http://localhost:3000/login`,loginUser);
         if(response.status === 200){
 
             alert("user logged in successfully");
