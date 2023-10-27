@@ -5,8 +5,10 @@ const sequelize = require("./util/database");
 
 const userRoute = require("./routes/userRoute");
 const expRoute = require("./routes/expenseRoute");
+const purchaseRoute = require("./routes/purchaseRoute");
 const User = require("./models/user");
 const Expense = require("./models/expenseModel");
+const Orders = require("./models/orders");
 
 app.use(express.json());
 app.use(cors());
@@ -22,8 +24,15 @@ app.post("/deleteExpense/:id", expRoute);
 
 app.get("/displayItems", expRoute);
 
+app.post("/buyPremium", purchaseRoute);
+
+app.post("/updateTransactionStatus", purchaseRoute);
+
 User.hasMany(Expense);
 Expense.belongsTo(User);
+
+User.hasMany(Orders);
+Orders.belongsTo(User);
 
 sequelize
   .sync()

@@ -5,7 +5,11 @@ const userAuthenticate = require("../middleware/auth");
 
 const expenseController = require("../controllers/expenseController");
 
-router.post("/addExpense", expenseController.addExpense);
+router.post(
+  "/addExpense",
+  userAuthenticate.authenticate,
+  expenseController.addExpense
+);
 
 router.post("/deleteExpense/:id", expenseController.deleteExpense);
 

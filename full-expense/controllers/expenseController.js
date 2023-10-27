@@ -4,13 +4,13 @@ const jwtSecret = "1234abc";
 
 exports.addExpense = async (req, res) => {
   const { amount, description, category } = req.body;
-  const token = req.headers.authorization;
-  const decodedToken = jwt.verify(token, jwtSecret);
+  // const token = req.headers.authorization;
+  // const decodedToken = jwt.verify(token, jwtSecret);
 
-  if (!decodedToken) {
-    return res.status(401).json({ message: "Invalid token" });
-  }
-  const userId = decodedToken.userId;
+  // if (!decodedToken) {
+  //   return res.status(401).json({ message: "Invalid token" });
+  // }
+  const userId = req.user.id;
   try {
     const result = await Expense.create({
       amount: amount,
@@ -20,7 +20,7 @@ exports.addExpense = async (req, res) => {
     });
 
     console.log("Expense added");
-    console.log(result);
+    //console.log(result);
     res.status(200).json({ result, message: "expense added successfully" });
   } catch (err) {
     if (err) {

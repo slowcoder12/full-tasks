@@ -30,3 +30,7 @@ h1{
     padding-bottom: 1rem;
     text-align: center;
 }
+
+#prem-btn{
+   float: right;
+}

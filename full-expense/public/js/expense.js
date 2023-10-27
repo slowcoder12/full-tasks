@@ -73,4 +73,56 @@ async function displayItems() {
   }
 }
 
-window.addEventListener("load", displayItems);
+document
+  .getElementById("prem-btn")
+  .addEventListener("click", async function (e) {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await axios.post(
+        "http://localhost:3000/buyPremium",
+        null,
+        {
+          headers: { Authorization: token },
+        }
+      );
+
+      //console.log("ressssspoonnseee", response);
+
+      const key_id = response.data.key_id;
+      const order_id = response.data.order.orderId;
+
+      let options = {
+        key: key_id,
+        order_id: order_id,
+        handler: async function (response) {
+          console.log("response===>>.", response);
+          try {
+            await axios.post(
+              "http://localhost:3000/updateTransactionStatus",
+              {
+                order_id: options.order_id,
+                payment_id: response.razorpay_payment_id,
+              },
+              { headers: { Authorization: token } }
+            );
+
+            alert("You are a premium user now");
+          } catch (error) {
+            console.error("Error updating transaction status:", error);
+            alert("Transaction failed. Please try again.");
+          }
+        },
+      };
+
+      const rzp = new Razorpay(options);
+      rzp.open();
+      e.preventDefault();
+    } catch (error) {
+      console.error("Error initiating payment:", error);
+      alert("Transaction failed. Please try again.");
+    }
+  });
+window.addEventListener("load", () => {
+  displayItems();
+});
