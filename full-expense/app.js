@@ -28,6 +28,10 @@ app.post("/buyPremium", purchaseRoute);
 
 app.post("/updateTransactionStatus", purchaseRoute);
 
+app.get("/checkPremium", purchaseRoute);
+
+app.get("/leaderBoard", expRoute);
+
 User.hasMany(Expense);
 Expense.belongsTo(User);
 

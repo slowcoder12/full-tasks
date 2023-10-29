@@ -19,4 +19,6 @@ router.get(
   expenseController.displayItems
 );
 
+router.get("/leaderBoard", expenseController.leaderBoard);
+
 module.exports = router;

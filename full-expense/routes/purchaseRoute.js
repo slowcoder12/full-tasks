@@ -15,4 +15,10 @@ router.post(
   purchaseController.updateTransactionStatus
 );
 
+router.get(
+  "/checkPremium",
+  userAuthenticate.authenticate,
+  purchaseController.checkPremium
+);
+
 module.exports = router;

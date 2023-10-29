@@ -85,3 +85,20 @@ exports.updateTransactionStatus = async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 };
+
+exports.checkPremium = async (req, res) => {
+  const userId = req.user.id;
+  try {
+    const checkPrem = await User.findOne({
+      where: {
+        id: userId,
+      },
+    });
+    // console.log("rowwww==>", checkPrem);
+    if (checkPrem.isPremium === true) {
+      res.status(200).json(checkPrem.isPremium);
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};

@@ -1,6 +1,8 @@
 const Expense = require("../models/expenseModel");
 const jwt = require("jsonwebtoken");
 const jwtSecret = "1234abc";
+const sequelize = require("../util/database");
+const User = require("../models/user");
 
 exports.addExpense = async (req, res) => {
   const { amount, description, category } = req.body;
@@ -57,5 +59,23 @@ exports.displayItems = async (req, res) => {
     res.status(200).json(expenses);
   } catch (err) {
     res.status(500).json({ message: "err occured in displaying" });
+  }
+};
+
+exports.leaderBoard = async (req, res) => {
+  try {
+    const expenses = await Expense.findAll({
+      attributes: [
+        "userId",
+        [sequelize.fn("sum", sequelize.col("amount")), "totalExpense"],
+      ],
+      group: ["userId"],
+      include: [{ model: User, attributes: ["name"] }],
+      order: [[sequelize.literal("totalExpense"), "DESC"]],
+    });
+
+    res.status(200).json(expenses);
+  } catch (err) {
+    console.log(err);
   }
 };

@@ -73,6 +73,7 @@ async function displayItems() {
   }
 }
 
+document.getElementById("leaderboard").style.display = "none";
 document
   .getElementById("prem-btn")
   .addEventListener("click", async function (e) {
@@ -108,6 +109,11 @@ document
             );
 
             alert("You are a premium user now");
+
+            const premMsg = document.getElementById("prem-msg");
+            premMsg.innerText = "You are now a Premium User";
+
+            document.getElementById("prem-btn").style.display = "none";
           } catch (error) {
             console.error("Error updating transaction status:", error);
             alert("Transaction failed. Please try again.");
@@ -123,6 +129,51 @@ document
       alert("Transaction failed. Please try again.");
     }
   });
+
+async function checkPrem(token) {
+  try {
+    const response = await axios.get("http://localhost:3000/checkPremium", {
+      headers: { Authorization: token },
+    });
+    //console.log(response);
+    if (response.data === true) {
+      const premMsg = document.getElementById("prem-msg");
+      premMsg.innerText = "You are now a Premium User";
+
+      document.getElementById("prem-btn").style.display = "none";
+      document.getElementById("leaderboard").style.display = "block";
+    } else {
+      const premMsg = document.getElementById("prem-msg");
+      premMsg.innerText = "";
+
+      document.getElementById("prem-btn").style.display = "block";
+      document.getElementById("leaderboard").style.display = "none";
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+document
+  .getElementById("leaderboard")
+  .addEventListener("click", getLeaderBoard);
+async function getLeaderBoard() {
+  try {
+    const response = await axios.get("http://localhost:3000/leaderBoard");
+    console.log(response);
+    response.data.forEach((user) => {
+      const leaderboardStats = document.getElementById("leaderboardStats");
+      const newItem = document.createElement("li");
+      newItem.innerHTML = `${user.user.name} - Total Expense: $${user.totalExpense}`;
+      leaderboardStats.appendChild(newItem);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 window.addEventListener("load", () => {
+  const token = localStorage.getItem("token");
+  checkPrem(token);
   displayItems();
 });
