@@ -20,6 +20,11 @@ exports.addExpense = async (req, res) => {
       category: category,
       userId: userId,
     });
+    const user = await User.findByPk(userId);
+    if (user) {
+      user.totalExpense += parseInt(amount);
+      await user.save();
+    }
 
     console.log("Expense added");
     //console.log(result);
@@ -34,6 +39,19 @@ exports.addExpense = async (req, res) => {
 exports.deleteExpense = async (req, res) => {
   const id = req.params.id;
   try {
+    const expense = await Expense.findOne({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!expense) {
+      return res.status(404).json({ message: "Expense not found" });
+    }
+
+    const userId = expense.userId;
+    const amount = expense.amount;
+
     const result = await Expense.destroy({
       where: {
         id: id,
@@ -41,9 +59,15 @@ exports.deleteExpense = async (req, res) => {
     });
 
     if (result === 1) {
+      const user = await User.findByPk(userId);
+      if (user) {
+        user.totalExpense -= amount;
+        await user.save();
+      }
+
       res.status(200).json({ message: "Expense deleted successfully" });
     } else {
-      res.status(404).json({ message: "Expense not found" });
+      res.status(500).json({ message: "An error occurred" });
     }
   } catch (err) {
     console.log(err);
@@ -64,16 +88,10 @@ exports.displayItems = async (req, res) => {
 
 exports.leaderBoard = async (req, res) => {
   try {
-    const expenses = await Expense.findAll({
-      attributes: [
-        "userId",
-        [sequelize.fn("sum", sequelize.col("amount")), "totalExpense"],
-      ],
-      group: ["userId"],
-      include: [{ model: User, attributes: ["name"] }],
-      order: [[sequelize.literal("totalExpense"), "DESC"]],
+    const expenses = await User.findAll({
+      attributes: ["name", "totalExpense"],
+      order: [["totalExpense", "DESC"]],
     });
-
     res.status(200).json(expenses);
   } catch (err) {
     console.log(err);

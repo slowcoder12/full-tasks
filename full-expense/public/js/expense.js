@@ -157,16 +157,24 @@ async function checkPrem(token) {
 document
   .getElementById("leaderboard")
   .addEventListener("click", getLeaderBoard);
+
 async function getLeaderBoard() {
   try {
     const response = await axios.get("http://localhost:3000/leaderBoard");
     console.log(response);
-    response.data.forEach((user) => {
+
+    if (response.status === 200) {
+      const data = response.data;
       const leaderboardStats = document.getElementById("leaderboardStats");
-      const newItem = document.createElement("li");
-      newItem.innerHTML = `${user.user.name} - Total Expense: $${user.totalExpense}`;
-      leaderboardStats.appendChild(newItem);
-    });
+
+      data.forEach((user) => {
+        const newItem = document.createElement("li");
+        newItem.innerHTML = `${user.name} - Total Expense: $${user.totalExpense}`;
+        leaderboardStats.appendChild(newItem);
+      });
+    } else {
+      console.log("Failed to fetch leaderboard data.");
+    }
   } catch (err) {
     console.log(err);
   }
