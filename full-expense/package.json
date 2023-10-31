@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@sendinblue/client": "^3.3.1",
     "bcrypt": "^5.1.1",
     "cor": "^0.0.0",
     "cors": "^2.8.5",
@@ -7,7 +8,8 @@
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.6.2",
     "razorpay": "^2.9.2",
-    "sequelize": "^6.33.0"
+    "sequelize": "^6.33.0",
+    "sib-api-v3-sdk": "^8.5.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

@@ -6,6 +6,7 @@ const sequelize = require("./util/database");
 const userRoute = require("./routes/userRoute");
 const expRoute = require("./routes/expenseRoute");
 const purchaseRoute = require("./routes/purchaseRoute");
+const passwordRoute = require("./routes/passwordRoute");
 const User = require("./models/user");
 const Expense = require("./models/expenseModel");
 const Orders = require("./models/orders");
@@ -31,6 +32,8 @@ app.post("/updateTransactionStatus", purchaseRoute);
 app.get("/checkPremium", purchaseRoute);
 
 app.get("/leaderBoard", expRoute);
+
+app.post("/forgotPassword", passwordRoute);
 
 User.hasMany(Expense);
 Expense.belongsTo(User);
