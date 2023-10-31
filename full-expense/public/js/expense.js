@@ -139,9 +139,9 @@ async function checkPrem(token) {
     if (response.data === true) {
       const premMsg = document.getElementById("prem-msg");
       premMsg.innerText = "You are now a Premium User";
+      document.getElementById("leaderboard").style.display = "block";
 
       document.getElementById("prem-btn").style.display = "none";
-      document.getElementById("leaderboard").style.display = "block";
     } else {
       const premMsg = document.getElementById("prem-msg");
       premMsg.innerText = "";
