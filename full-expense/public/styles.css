@@ -34,3 +34,7 @@ h1{
 #prem-btn{
    float: right;
 }
+
+#leaderboard{
+    display: none;
+}

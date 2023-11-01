@@ -11,4 +11,9 @@ form.addEventListener("submit", async function (e) {
     "http://localhost:3000/forgotPassword",
     obj
   );
+
+  console.log(response);
+  if (response.status === 200) {
+    alert(response.data.message);
+  }
 });

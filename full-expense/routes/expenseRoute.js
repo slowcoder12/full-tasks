@@ -11,7 +11,7 @@ router.post(
   expenseController.addExpense
 );
 
-router.post("/deleteExpense/:id", expenseController.deleteExpense);
+router.delete("/deleteExpense/:id", expenseController.deleteExpense);
 
 router.get(
   "/displayItems",

@@ -36,7 +36,7 @@ form.addEventListener("submit", async function (e) {
 
 async function deleteExp(id) {
   try {
-    const response = await axios.post(
+    const response = await axios.delete(
       `http://localhost:3000/deleteExpense/${id}`
     );
     console.log(response);
@@ -73,7 +73,7 @@ async function displayItems() {
   }
 }
 
-document.getElementById("leaderboard").style.display = "none";
+//document.getElementById("leaderboard").style.display = "none";
 document
   .getElementById("prem-btn")
   .addEventListener("click", async function (e) {
@@ -114,6 +114,7 @@ document
             premMsg.innerText = "You are now a Premium User";
 
             document.getElementById("prem-btn").style.display = "none";
+            document.getElementById("leaderboard").style.display = "block";
           } catch (error) {
             console.error("Error updating transaction status:", error);
             alert("Transaction failed. Please try again.");
@@ -139,6 +140,7 @@ async function checkPrem(token) {
     if (response.data === true) {
       const premMsg = document.getElementById("prem-msg");
       premMsg.innerText = "You are now a Premium User";
+
       document.getElementById("leaderboard").style.display = "block";
 
       document.getElementById("prem-btn").style.display = "none";
@@ -167,6 +169,7 @@ async function getLeaderBoard() {
       const data = response.data;
       const leaderboardStats = document.getElementById("leaderboardStats");
 
+      leaderboardStats.innerHTML = "";
       data.forEach((user) => {
         const newItem = document.createElement("li");
         newItem.innerHTML = `${user.name} - Total Expense: $${user.totalExpense}`;

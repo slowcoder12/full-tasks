@@ -10,6 +10,8 @@ const passwordRoute = require("./routes/passwordRoute");
 const User = require("./models/user");
 const Expense = require("./models/expenseModel");
 const Orders = require("./models/orders");
+const forgotPasswordReq = require("./models/forgotPassword");
+app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
 app.use(cors());
@@ -21,7 +23,7 @@ app.post("/login", userRoute);
 
 app.post("/addExpense", expRoute);
 
-app.post("/deleteExpense/:id", expRoute);
+app.delete("/deleteExpense/:id", expRoute);
 
 app.get("/displayItems", expRoute);
 
@@ -35,11 +37,17 @@ app.get("/leaderBoard", expRoute);
 
 app.post("/forgotPassword", passwordRoute);
 
+app.get("/resetPassword/:requestId", passwordRoute);
+
+app.post("/updatePassword/:requestId", passwordRoute);
+
 User.hasMany(Expense);
 Expense.belongsTo(User);
 
 User.hasMany(Orders);
 Orders.belongsTo(User);
+
+User.hasMany(forgotPasswordReq);
 
 sequelize
   .sync({ force: false })

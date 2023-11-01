@@ -1,8 +1,9 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
-const jwtSecret = "1234abc";
+const jwtSecret = process.env.JWT_SECRET;
 
 exports.addUser = async (req, res) => {
   const name = req.body.name;
