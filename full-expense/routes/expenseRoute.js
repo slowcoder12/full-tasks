@@ -19,6 +19,24 @@ router.get(
   expenseController.displayItems
 );
 
+router.get(
+  "/download",
+  userAuthenticate.authenticate,
+  expenseController.downloadExpenses
+);
+
 router.get("/leaderBoard", expenseController.leaderBoard);
+
+router.post(
+  "/savelink",
+  userAuthenticate.authenticate,
+  expenseController.saveLink
+);
+
+router.get(
+  "/reportData",
+  userAuthenticate.authenticate,
+  expenseController.reportData
+);
 
 module.exports = router;

@@ -142,6 +142,7 @@ async function checkPrem(token) {
       premMsg.innerText = "You are now a Premium User";
 
       document.getElementById("leaderboard").style.display = "block";
+      document.getElementById("reports").style.display = "block";
 
       document.getElementById("prem-btn").style.display = "none";
     } else {
@@ -150,6 +151,7 @@ async function checkPrem(token) {
 
       document.getElementById("prem-btn").style.display = "block";
       document.getElementById("leaderboard").style.display = "none";
+      document.getElementById("reports").style.display = "none";
     }
   } catch (err) {
     console.log(err);

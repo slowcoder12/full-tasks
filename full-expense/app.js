@@ -11,6 +11,8 @@ const User = require("./models/user");
 const Expense = require("./models/expenseModel");
 const Orders = require("./models/orders");
 const forgotPasswordReq = require("./models/forgotPassword");
+const fileDownloads = require("./models/fileDownloads");
+
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
@@ -41,6 +43,12 @@ app.get("/resetPassword/:requestId", passwordRoute);
 
 app.post("/updatePassword/:requestId", passwordRoute);
 
+app.get("/download", expRoute);
+
+app.post("/savelink", expRoute);
+
+app.get("/reportData", expRoute);
+
 User.hasMany(Expense);
 Expense.belongsTo(User);
 
@@ -48,6 +56,7 @@ User.hasMany(Orders);
 Orders.belongsTo(User);
 
 User.hasMany(forgotPasswordReq);
+User.hasMany(fileDownloads);
 
 sequelize
   .sync({ force: false })
