@@ -1,4 +1,5 @@
 const downloadbtn = document.getElementById("download-btn");
+let currentPage = 1;
 
 document.addEventListener("DOMContentLoaded", function () {
   fetchDataAndPopulateTable();
@@ -8,16 +9,21 @@ document.addEventListener("DOMContentLoaded", function () {
 async function fetchDataAndPopulateTable() {
   try {
     const token = localStorage.getItem("token");
-    const response = await axios.get("http://localhost:3000/displayItems", {
-      headers: { Authorization: token },
-    });
+    const response = await axios.get(
+      `http://localhost:3000/displayItems?page=${currentPage}`,
+      {
+        headers: { Authorization: token },
+      }
+    );
     if (!response.status === 200) {
       throw new Error("Network response was not ok");
     }
-    const data = response.data;
+    const data = response.data.expenses;
     console.log("expensedata==> ", data);
 
     const expenseTable = document.getElementById("expense-table");
+    expenseTable.innerHTML = "";
+
     data.forEach((expense) => {
       const row = expenseTable.insertRow();
       const createdAt = new Date(expense.createdAt);
@@ -26,6 +32,21 @@ async function fetchDataAndPopulateTable() {
       row.insertCell(2).textContent = expense.category;
       row.insertCell(3).textContent = expense.amount;
     });
+    const totalPages = response.data.totalPages;
+
+    const paginationContainer = document.getElementById("pagination-container");
+    paginationContainer.innerHTML = "";
+
+    for (let i = 1; i <= totalPages; i++) {
+      const pageBtn = document.createElement("button");
+      pageBtn.textContent = i;
+      pageBtn.addEventListener("click", () => {
+        currentPage = i;
+        fetchDataAndPopulateTable();
+      });
+
+      paginationContainer.appendChild(pageBtn);
+    }
   } catch (error) {
     console.error("Error:", error);
   }

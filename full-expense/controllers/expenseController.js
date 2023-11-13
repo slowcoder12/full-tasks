@@ -75,10 +75,24 @@ exports.deleteExpense = async (req, res) => {
 
 exports.displayItems = async (req, res) => {
   try {
-    const expenses = await Expense.findAll({ where: { userId: req.user.id } });
+    const page = req.query.page || 1;
+    const limit = 10;
+    const offset = (page - 1) * limit;
+    const expenses = await Expense.findAndCountAll({
+      where: { userId: req.user.id },
+      limit,
+      offset,
+    });
     //console.log(expenses);
 
-    res.status(200).json(expenses);
+    res
+      .status(200)
+      .json({
+        expenses: expenses.rows,
+        totalItems: expenses.count,
+        currentPage: page,
+        totalPages: Math.ceil(expenses.count / limit),
+      });
   } catch (err) {
     res.status(500).json({ message: "err occured in displaying" });
   }
