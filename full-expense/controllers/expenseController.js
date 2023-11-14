@@ -76,7 +76,8 @@ exports.deleteExpense = async (req, res) => {
 exports.displayItems = async (req, res) => {
   try {
     const page = req.query.page || 1;
-    const limit = 10;
+    let limit = req.query.limit || 10;
+    limit = parseInt(limit);
     const offset = (page - 1) * limit;
     const expenses = await Expense.findAndCountAll({
       where: { userId: req.user.id },
@@ -85,15 +86,14 @@ exports.displayItems = async (req, res) => {
     });
     //console.log(expenses);
 
-    res
-      .status(200)
-      .json({
-        expenses: expenses.rows,
-        totalItems: expenses.count,
-        currentPage: page,
-        totalPages: Math.ceil(expenses.count / limit),
-      });
+    res.status(200).json({
+      expenses: expenses.rows,
+      totalItems: expenses.count,
+      currentPage: page,
+      totalPages: Math.ceil(expenses.count / limit),
+    });
   } catch (err) {
+    console.log(err);
     res.status(500).json({ message: "err occured in displaying" });
   }
 };
@@ -156,7 +156,7 @@ async function uploadToS3(data, filename) {
 exports.saveLink = (req, res) => {
   const link = req.body.link;
   const id = req.user.id;
-  console.log(link);
+  //console.log(link);
 
   try {
     const result = FilesDownloads.create({
@@ -173,7 +173,7 @@ exports.reportData = async (req, res) => {
     const expenses = await FilesDownloads.findAll({
       where: { userId: req.user.id },
     });
-    console.log(expenses);
+    //console.log(expenses);
 
     res.status(200).json(expenses);
   } catch (err) {

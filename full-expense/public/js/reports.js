@@ -4,13 +4,20 @@ let currentPage = 1;
 document.addEventListener("DOMContentLoaded", function () {
   fetchDataAndPopulateTable();
   fetchReportData();
+
+  const itemsPerPageSelect = document.getElementById("itemsPerPage");
+  itemsPerPageSelect.addEventListener("change", function () {
+    fetchDataAndPopulateTable();
+  });
 });
 
 async function fetchDataAndPopulateTable() {
   try {
     const token = localStorage.getItem("token");
+    const itemsPerPageSelect = document.getElementById("itemsPerPage");
+    const limit = itemsPerPageSelect.value;
     const response = await axios.get(
-      `http://localhost:3000/displayItems?page=${currentPage}`,
+      `http://localhost:3000/displayItems?page=${currentPage}&limit=${limit}`,
       {
         headers: { Authorization: token },
       }
