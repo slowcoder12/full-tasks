@@ -3,6 +3,9 @@ const app = express();
 const cors = require("cors");
 const sequelize = require("./util/database");
 
+const helmet = require("helmet");
+//const compression = require("compression");
+
 const userRoute = require("./routes/userRoute");
 const expRoute = require("./routes/expenseRoute");
 const purchaseRoute = require("./routes/purchaseRoute");
@@ -15,6 +18,10 @@ const forgotPasswordReq = require("./models/forgotPassword");
 const fileDownloads = require("./models/fileDownloads");
 
 app.use(express.urlencoded({ extended: true }));
+
+app.use(helmet());
+
+//app.use(compression());
 
 app.use(express.json());
 app.use(cors());
@@ -62,7 +69,7 @@ User.hasMany(fileDownloads);
 sequelize
   .sync({ force: false })
   .then((result) => {
-    app.listen(3000);
+    app.listen(process.env.PORT);
   })
   .catch((err) => {
     console.log(err);
