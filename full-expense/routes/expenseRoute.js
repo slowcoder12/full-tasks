@@ -11,32 +11,14 @@ router.post(
   expenseController.addExpense
 );
 
-router.delete("/deleteExpense/:id", expenseController.deleteExpense);
-
 router.get(
   "/displayItems",
   userAuthenticate.authenticate,
   expenseController.displayItems
 );
 
-router.get(
-  "/download",
-  userAuthenticate.authenticate,
-  expenseController.downloadExpenses
-);
+router.delete("/deleteExpense/:id", expenseController.deleteExpense);
 
 router.get("/leaderBoard", expenseController.leaderBoard);
-
-router.post(
-  "/savelink",
-  userAuthenticate.authenticate,
-  expenseController.saveLink
-);
-
-router.get(
-  "/reportData",
-  userAuthenticate.authenticate,
-  expenseController.reportData
-);
 
 module.exports = router;

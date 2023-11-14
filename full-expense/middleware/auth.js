@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
-const jwtSecret = "1234abc";
+const jwtSecret = process.env.JWT_SECRET;
 
 const authenticate = async (req, res, next) => {
   try {

@@ -18,13 +18,12 @@ form.addEventListener("submit", async function (e) {
         headers: { Authorization: token },
       }
     );
-    const list = document.getElementById("exp-container");
-    const newItem = document.createElement("li");
-    console.log(response);
+    const table = document.getElementById("expense-table");
+    const tbody = table.querySelector("tbody");
 
-    newItem.innerHTML = `${amount} - ${description} - ${category} <button onClick = "deleteExp(${response.data.result.id})">Delete</button>`;
-    newItem.setAttribute("data-id", response.data.result.id);
-    list.appendChild(newItem);
+    const newRow = tbody.insertRow();
+    newRow.innerHTML = `<td>${amount}</td><td>${description}</td><td>${category}</td><td><button onclick="deleteExp('${response.data.result.id}')">Delete</button></td>`;
+    newRow.setAttribute("data-id", response.data.result.id);
 
     document.getElementById("amount").value = "";
     document.getElementById("description").value = "";
@@ -58,15 +57,15 @@ async function displayItems() {
     const result = await axios.get("http://localhost:3000/displayItems", {
       headers: { Authorization: token },
     });
-    const list = document.getElementById("exp-container");
-    console.log(result);
-    list.innerHTML = "";
+    const table = document.getElementById("expense-table");
+    const tbody = table.querySelector("tbody");
+
+    tbody.innerHTML = "";
 
     result.data.forEach((expense) => {
-      const newItem = document.createElement("li");
-      newItem.innerHTML = `${expense.amount} - ${expense.description} - ${expense.category} <button onclick="deleteExp('${expense.id}')">Delete</button>`;
-      newItem.setAttribute("data-id", expense.id);
-      list.appendChild(newItem);
+      const newRow = tbody.insertRow();
+      newRow.innerHTML = `<td>${expense.amount}</td><td>${expense.description}</td><td>${expense.category}</td><td><button onclick="deleteExp('${expense.id}')">Delete</button></td>`;
+      newRow.setAttribute("data-id", expense.id);
     });
   } catch (err) {
     console.log("error occurred while fetching data", err);

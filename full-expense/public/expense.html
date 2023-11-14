@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Expenses</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/stylereport.css" />
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   </head>
   <body>
@@ -26,12 +27,22 @@
     <p id="prem-msg"></p>
     <button id="leaderboard">Leaderboard</button>
     <a href="reports.html"><button id="reports">Reports</button></a>
-    <ul id="exp-container"></ul>
+    <table id="expense-table">
+      <thead>
+        <tr>
+          <th>Amount</th>
+          <th>Description</th>
+          <th>Category</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="exp-container"></tbody>
+    </table>
     <ul id="leaderboardStats"></ul>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="./js/reports.js"></script>
 
     <script src="./js/expense.js"></script>
+    <script src="./js/reports.js"></script>
   </body>
 </html>

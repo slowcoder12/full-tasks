@@ -1,6 +1,3 @@
-const downloadbtn = document.getElementById("download-btn");
-let currentPage = 1;
-
 document.addEventListener("DOMContentLoaded", function () {
   fetchDataAndPopulateTable();
   fetchReportData();
@@ -10,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
     fetchDataAndPopulateTable();
   });
 });
+const downloadbtn = document.getElementById("download-btn");
+let currentPage = 1;
 
 async function fetchDataAndPopulateTable() {
   try {
@@ -17,7 +16,7 @@ async function fetchDataAndPopulateTable() {
     const itemsPerPageSelect = document.getElementById("itemsPerPage");
     const limit = itemsPerPageSelect.value;
     const response = await axios.get(
-      `http://localhost:3000/displayItems?page=${currentPage}&limit=${limit}`,
+      `http://localhost:3000/displayEItems?page=${currentPage}&limit=${limit}`,
       {
         headers: { Authorization: token },
       }
