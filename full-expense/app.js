@@ -2,9 +2,12 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const sequelize = require("./util/database");
+const fs = require("fs");
+const path = require("path");
 
 const helmet = require("helmet");
 //const compression = require("compression");
+const morgan = require("morgan");
 
 const userRoute = require("./routes/userRoute");
 const expRoute = require("./routes/expenseRoute");
@@ -19,7 +22,13 @@ const fileDownloads = require("./models/fileDownloads");
 
 app.use(express.urlencoded({ extended: true }));
 
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, "access.log"),
+  { flags: "a" }
+);
+
 app.use(helmet());
+app.use(morgan("combined", { stream: accessLogStream }));
 
 //app.use(compression());
 
