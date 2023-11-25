@@ -1,3 +1,14 @@
+window.addEventListener("load", () => {
+  const token = localStorage.getItem("token");
+  checkPrem(token);
+  displayItems();
+});
+
+const leaderboardButton = document.getElementById("leaderboard");
+const reportsButton = document.getElementById("reports");
+leaderboardButton.style.display = "none";
+reportsButton.style.display = "none";
+
 const form = document.querySelector("#expense-form");
 form.addEventListener("submit", async function (e) {
   e.preventDefault();
@@ -136,21 +147,21 @@ async function checkPrem(token) {
       headers: { Authorization: token },
     });
     //console.log(response);
+
     if (response.data === true) {
       const premMsg = document.getElementById("prem-msg");
       premMsg.innerText = "You are now a Premium User";
 
-      document.getElementById("leaderboard").style.display = "block";
-      document.getElementById("reports").style.display = "block";
-
+      leaderboardButton.style.display = "block";
+      reportsButton.style.display = "block";
       document.getElementById("prem-btn").style.display = "none";
     } else {
       const premMsg = document.getElementById("prem-msg");
       premMsg.innerText = "";
 
       document.getElementById("prem-btn").style.display = "block";
-      document.getElementById("leaderboard").style.display = "none";
-      document.getElementById("reports").style.display = "none";
+      leaderboardButton.style.display = "none";
+      reportsButton.style.display = "none";
     }
   } catch (err) {
     console.log(err);
@@ -183,9 +194,3 @@ async function getLeaderBoard() {
     console.log(err);
   }
 }
-
-window.addEventListener("load", () => {
-  const token = localStorage.getItem("token");
-  checkPrem(token);
-  displayItems();
-});

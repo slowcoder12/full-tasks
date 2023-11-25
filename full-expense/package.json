@@ -1,7 +1,17 @@
 {
+  "name": "full-expense",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start" : "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "@sendinblue/client": "^3.3.1",
-    "aws-sdk": "^2.1490.0",
+    "aws-sdk": "^2.1496.0",
     "bcrypt": "^5.1.1",
     "compression": "^1.7.4",
     "cor": "^0.0.0",
@@ -12,23 +22,11 @@
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
-    "mysql2": "^3.6.2",
+    "mysql2": "^3.6.3",
+    "nodemon": "^3.0.1",
     "razorpay": "^2.9.2",
-    "sequelize": "^6.33.0",
+    "sequelize": "^6.35.0",
     "sib-api-v3-sdk": "^8.5.0",
     "uuid": "^9.0.1"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
-  },
-  "name": "full-expense",
-  "version": "1.0.0",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  }
 }
