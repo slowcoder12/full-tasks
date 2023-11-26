@@ -8,7 +8,10 @@ loginForm.addEventListener("submit", async function (event) {
 
   const loginUser = { email, password };
   try {
-    const response = await axios.post(`http://localhost:3000/login`, loginUser);
+    const response = await axios.post(
+      `http://65.0.105.168:3000/login`,
+      loginUser
+    );
     if (response.status === 200) {
       console.log(response);
 
