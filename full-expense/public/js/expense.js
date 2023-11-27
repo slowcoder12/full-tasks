@@ -23,7 +23,7 @@ form.addEventListener("submit", async function (e) {
     const token = localStorage.getItem("token");
 
     const response = await axios.post(
-      "http://65.0.105.168:3000/addExpense",
+      "http://43.204.236.189:3000/addExpense",
       expenseObj,
       {
         headers: { Authorization: token },
@@ -47,7 +47,7 @@ form.addEventListener("submit", async function (e) {
 async function deleteExp(id) {
   try {
     const response = await axios.delete(
-      `http://65.0.105.168:3000/deleteExpense/${id}`
+      `http://43.204.236.189:3000/deleteExpense/${id}`
     );
     console.log(response);
     if (response.status === 200) {
@@ -65,7 +65,7 @@ async function deleteExp(id) {
 async function displayItems() {
   try {
     const token = localStorage.getItem("token");
-    const result = await axios.get("http://65.0.105.168:3000/displayItems", {
+    const result = await axios.get("http://43.204.236.189:3000/displayItems", {
       headers: { Authorization: token },
     });
     const table = document.getElementById("expense-table");
@@ -91,7 +91,7 @@ document
       const token = localStorage.getItem("token");
 
       const response = await axios.post(
-        "http://65.0.105.168:3000/buyPremium",
+        "http://43.204.236.189:3000/buyPremium",
         null,
         {
           headers: { Authorization: token },
@@ -110,7 +110,7 @@ document
           console.log("response===>>.", response);
           try {
             await axios.post(
-              "http://65.0.105.168:3000/updateTransactionStatus",
+              "http://43.204.236.189:3000/updateTransactionStatus",
               {
                 order_id: options.order_id,
                 payment_id: response.razorpay_payment_id,
@@ -143,9 +143,12 @@ document
 
 async function checkPrem(token) {
   try {
-    const response = await axios.get("http://65.0.105.168:3000/checkPremium", {
-      headers: { Authorization: token },
-    });
+    const response = await axios.get(
+      "http://43.204.236.189:3000/checkPremium",
+      {
+        headers: { Authorization: token },
+      }
+    );
     //console.log(response);
 
     if (response.data === true) {
@@ -174,7 +177,7 @@ document
 
 async function getLeaderBoard() {
   try {
-    const response = await axios.get("http://65.0.105.168:3000/leaderBoard");
+    const response = await axios.get("http://43.204.236.189:3000/leaderBoard");
     console.log(response);
 
     if (response.status === 200) {

@@ -9,7 +9,7 @@ loginForm.addEventListener("submit", async function (event) {
   const loginUser = { email, password };
   try {
     const response = await axios.post(
-      `http://65.0.105.168:3000/login`,
+      `http://43.204.236.189:3000/login`,
       loginUser
     );
     if (response.status === 200) {

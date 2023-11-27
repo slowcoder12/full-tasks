@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "nodemon app.js"
+    "start": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +24,7 @@
     "morgan": "^1.10.0",
     "mysql2": "^3.6.3",
     "nodemon": "^3.0.1",
+    "pm2": "^5.3.0",
     "razorpay": "^2.9.2",
     "sequelize": "^6.35.0",
     "sib-api-v3-sdk": "^8.5.0",

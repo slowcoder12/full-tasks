@@ -9,7 +9,10 @@ form.addEventListener("submit", async function (e) {
   const user = { name, email, password };
   // console.log(user);
   try {
-    const response = await axios.post("http://65.0.105.168:3000/signup", user);
+    const response = await axios.post(
+      "http://43.204.236.189:3000/signup",
+      user
+    );
     if (response.status === 200) {
       alert(response.data.message);
     }

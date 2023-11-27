@@ -16,7 +16,7 @@ async function fetchDataAndPopulateTable() {
     const itemsPerPageSelect = document.getElementById("itemsPerPage");
     const limit = itemsPerPageSelect.value;
     const response = await axios.get(
-      `http://65.0.105.168:3000/displayEItems?page=${currentPage}&limit=${limit}`,
+      `http://43.204.236.189:3000/displayEItems?page=${currentPage}&limit=${limit}`,
       {
         headers: { Authorization: token },
       }
@@ -62,7 +62,7 @@ downloadbtn.addEventListener("click", async function (e) {
   e.preventDefault();
 
   const token = localStorage.getItem("token");
-  const response = await axios.get("http://65.0.105.168:3000/download", {
+  const response = await axios.get("http://43.204.236.189:3000/download", {
     headers: { Authorization: token },
   });
   console.log(response);
@@ -86,7 +86,7 @@ async function saveLinkToDB(link) {
   const token = localStorage.getItem("token");
 
   const response = await axios.post(
-    "http://65.0.105.168:3000/savelink",
+    "http://43.204.236.189:3000/savelink",
     linkobj,
     {
       headers: { Authorization: token },
@@ -97,7 +97,7 @@ async function saveLinkToDB(link) {
 async function fetchReportData() {
   try {
     const token = localStorage.getItem("token");
-    const response = await axios.get("http://65.0.105.168:3000/reportData", {
+    const response = await axios.get("http://43.204.236.189:3000/reportData", {
       headers: { Authorization: token },
     });
     if (!response.status === 200) {

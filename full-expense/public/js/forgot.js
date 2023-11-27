@@ -8,7 +8,7 @@ form.addEventListener("submit", async function (e) {
   const obj = { email };
 
   const response = await axios.post(
-    "http://65.0.105.168:3000/forgotPassword",
+    "http://43.204.236.189:3000/forgotPassword",
     obj
   );
 
